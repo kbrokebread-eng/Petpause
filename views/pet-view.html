@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pet profile | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR4: view, update and delete a pet profile -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1 id="petName"></h1>
+        <div class="sub" id="petSub"></div>
+      </div>
+      <div class="actions">
+        <a class="btn pri" id="newBooking" href="/bookings/new">+ New booking</a>
+        <a class="btn sec" id="editLink" href="#">Edit</a>
+        <form class="inline" id="deleteForm">
+          <button class="btn dan" type="submit">Delete</button>
+        </form>
+        <a class="btn sec" href="/pets">Back</a>
+      </div>
+    </div>
+
+    <div id="alert"></div>
+
+    <div class="grid3">
+      <div class="card" id="petCard"><h2>Pet details</h2></div>
+      <div class="card" id="ownerCard"><h2>Owner</h2></div>
+      <div class="card danger" id="vetCard"><h2>&#9742; Emergency vet</h2></div>
+    </div>
+
+    <div class="card flush" style="margin-top:18px">
+      <div style="padding:16px 16px 0"><h2>Stays</h2></div>
+      <div id="stays"></div>
+    </div>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/pet-view.js"></script>
+</body>
+</html>

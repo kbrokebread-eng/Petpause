@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pets | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR4: view the list of pet profiles -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1>Pets</h1>
+        <div class="sub">Every registered pet. Pets with a medical or dietary restriction are marked in red.</div>
+      </div>
+      <a class="btn pri" href="/pets/new">+ Register new pet</a>
+    </div>
+    <div class="card flush">
+      <form class="filters" id="searchForm" method="get" action="/pets">
+        <input type="search" name="q" placeholder="Search pet, owner or breed" aria-label="Search">
+        <button class="btn sec" type="submit">Search</button>
+      </form>
+      <div id="list"></div>
+    </div>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/pets.js"></script>
+</body>
+</html>

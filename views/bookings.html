@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookings | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR7: view, amend and cancel bookings -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1>Bookings</h1>
+        <div class="sub">View, amend or cancel bookings.</div>
+      </div>
+      <a class="btn pri" href="/bookings/new">+ New booking</a>
+    </div>
+    <div class="card flush">
+      <form class="filters" id="filterForm" method="get" action="/bookings">
+        <input type="search" name="q" placeholder="Search pet, owner or booking ID" aria-label="Search">
+        <select name="status" aria-label="Status">
+          <option>All</option><option>In progress</option><option>Upcoming</option><option>Completed</option><option>Cancelled</option>
+        </select>
+        <button class="btn sec" type="submit">Filter</button>
+      </form>
+      <div id="list"></div>
+    </div>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/bookings.js"></script>
+</body>
+</html>

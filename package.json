@@ -1,0 +1,24 @@
+{
+  "name": "petpause-prbs",
+  "version": "1.0.0",
+  "description": "PetPause Daycare - Pet Records and Booking System (HTML, CSS, JavaScript, Node.js, SQLite)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.2.1"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "private": true,
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

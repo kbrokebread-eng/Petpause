@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cancel booking | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR7: cancel a booking, after an "Are you sure?" page -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="card" style="max-width:560px;margin:30px auto">
+      <h1 id="heading">Cancel booking?</h1>
+      <p class="muted" style="margin-top:10px" id="details"></p>
+      <form id="cancelForm" method="post">
+        <div class="field">
+          <label for="f_reason">Reason <span class="req">*</span></label>
+          <select id="f_reason" name="reason"></select>
+        </div>
+        <div class="actions" style="justify-content:flex-end">
+          <a class="btn sec" href="/bookings">Keep booking</a>
+          <button class="btn danf" type="submit">Cancel booking</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/booking-cancel.js"></script>
+</body>
+</html>

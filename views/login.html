@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR1: staff log in with a unique username and password -->
+<body class="bare">
+  <div class="login">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
+        <circle cx="6" cy="9" r="2"/><circle cx="10" cy="5.3" r="2"/><circle cx="14" cy="5.3" r="2"/><circle cx="18" cy="9" r="2"/>
+        <path d="M7.3 17.6c0-3.3 2.2-5.8 4.7-5.8s4.7 2.5 4.7 5.8c0 2.1-1.9 2.6-4.7 2.6s-4.7-.5-4.7-2.6z"/>
+      </svg>
+      <span>PetPause<small>Records &amp; Bookings</small></span>
+    </div>
+    <div class="card">
+      <h1>Staff log-in</h1>
+      <p class="muted">Log in with the username and password your manager gave you.</p>
+      <div id="note"></div>
+      <div id="error"></div>
+      <form id="loginForm" method="post" action="/login">
+        <div class="field">
+          <label for="f_username">Username <span class="req">*</span></label>
+          <input id="f_username" name="username" type="text" value="" required autocomplete="username" autofocus>
+        </div>
+        <div class="field">
+          <label for="f_password">Password <span class="req">*</span></label>
+          <input id="f_password" name="password" type="password" value="" required autocomplete="current-password">
+        </div>
+        <button class="btn pri" type="submit">Log in</button>
+      </form>
+      <p class="help" style="margin-top:14px">Forgot your password? Ask a manager to reset it.</p>
+    </div>
+  </div>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/login.js"></script>
+</body>
+</html>

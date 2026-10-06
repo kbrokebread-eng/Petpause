@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Occupancy report | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR12: weekly occupancy report - pets boarded per day, occupancy % against capacity and the peak day -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1>Weekly occupancy report</h1>
+        <div class="sub" id="sub"></div>
+      </div>
+      <div class="actions no-print">
+        <a class="btn sec" id="prevWeek" href="#">&#9664; Previous week</a>
+        <a class="btn sec" id="nextWeek" href="#">Next week &#9654;</a>
+        <button class="btn pri" type="button" onclick="window.print()">Print / save as PDF</button>
+      </div>
+    </div>
+
+    <div class="grid4" style="margin-bottom:18px" id="stats"></div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Pets boarded per night</h2>
+        <div class="chart" id="chart"></div>
+        <div class="chart-labels" id="labels"></div>
+      </div>
+      <div class="card flush" id="table"></div>
+    </div>
+    <p class="muted small" style="margin-top:14px" id="footer"></p>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/reports.js"></script>
+</body>
+</html>

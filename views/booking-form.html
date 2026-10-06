@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New booking | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!--
+  FR6 create a booking, FR7 amend it, FR8 every booking is linked to exactly one registered pet,
+  FR9 capacity is checked for every night before the booking is confirmed.
+-->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1 id="heading">New booking</h1>
+        <div class="sub">Every booking must be linked to one registered pet. Capacity (<span id="capText">20</span> places)
+          is checked for every night of the stay.</div>
+      </div>
+    </div>
+
+    <form id="bookingForm" method="post">
+      <div class="grid2">
+        <div class="card">
+          <h2>Booking details</h2>
+
+          <!-- New booking: choose from registered pets only (FR8) -->
+          <div class="field" id="petChooser">
+            <label for="f_pet">Pet <span class="req">*</span></label>
+            <select id="f_pet" name="pet_id">
+              <option value="0">Choose a registered pet</option>
+            </select>
+            <div class="help">Pet not listed? <a href="/pets/new">Register the pet first</a>.</div>
+          </div>
+
+          <!-- Amending: the pet can't be changed -->
+          <div class="field" id="petFixed" hidden>
+            <label>Pet</label>
+            <input type="text" disabled id="petFixedName" value="">
+          </div>
+
+          <div class="cols">
+            <div class="field">
+              <label for="f_start">Start date <span class="req">*</span></label>
+              <input id="f_start" name="start" type="date" value="" required>
+            </div>
+            <div class="field">
+              <label for="f_end">End date (collection day) <span class="req">*</span></label>
+              <input id="f_end" name="end" type="date" value="" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f_owner_contact">Owner contact number <span class="req">*</span></label>
+            <input id="f_owner_contact" name="owner_contact" type="tel" value="" required placeholder="082 555 0000">
+          </div>
+          <div class="field">
+            <label for="f_notes">Notes for staff</label>
+            <textarea id="f_notes" name="notes" rows="2"></textarea>
+            <div class="help">Optional. Feeding, collection time and so on.</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h2>Capacity check</h2>
+            <div id="nights">
+              <p class="muted">Choose the dates and press <strong>Check availability</strong> to see the places left on each night.</p>
+            </div>
+          </div>
+
+          <div id="banners"></div>
+
+          <div class="card" style="margin-top:18px">
+            <div class="actions" style="justify-content:flex-end">
+              <a class="btn sec" href="/bookings">Cancel</a>
+              <button class="btn sec" type="submit" name="action" value="check">Check availability</button>
+              <button class="btn pri" type="submit" name="action" value="confirm" id="confirmBtn" disabled
+                      title="Check availability first">Confirm booking</button>
+            </div>
+            <p class="help" id="confirmHelp" style="text-align:right;margin:8px 0 0">Confirm unlocks once every night has a free place.</p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/booking-form.js"></script>
+</body>
+</html>

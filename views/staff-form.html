@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add staff | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR2: create a staff account or change its name, role and password -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1 id="heading">Add staff member</h1>
+        <div class="sub"><a href="/staff">Staff accounts</a> / <span id="crumb">New</span></div>
+      </div>
+    </div>
+    <div id="formError"></div>
+
+    <form id="staffForm" method="post" class="card" style="max-width:640px">
+      <div class="field">
+        <label for="f_full_name">Full name <span class="req">*</span></label>
+        <input id="f_full_name" name="full_name" type="text" value="" required>
+      </div>
+
+      <div id="newUsername">
+        <div class="field">
+          <label for="f_username">Username <span class="req">*</span></label>
+          <input id="f_username" name="username" type="text" value="" required autocomplete="off">
+        </div>
+        <div class="help" style="margin-top:-8px;margin-bottom:14px">Letters, numbers, dots or underscores. It can't be changed later.</div>
+      </div>
+      <div class="field" id="fixedUsername" hidden>
+        <label>Username</label>
+        <input type="text" value="" disabled id="fixedUsernameValue">
+        <div class="help">Usernames can't be changed.</div>
+      </div>
+
+      <div class="field">
+        <label for="f_role">Role <span class="req">*</span></label>
+        <select id="f_role" name="role">
+          <option>Care staff</option><option>Receptionist</option><option>Manager</option><option>Administrator</option>
+        </select>
+      </div>
+      <div class="help" style="margin-top:-8px;margin-bottom:14px">Care staff and receptionists can't see reports, staff accounts or settings.</div>
+
+      <h2 style="margin-top:20px" id="pwHeading">Password</h2>
+      <p class="help" id="pwKeep" hidden>Leave blank to keep the current password.</p>
+      <div class="cols">
+        <div class="field">
+          <label for="f_password">Password <span class="req" id="pwReq1">*</span></label>
+          <input id="f_password" name="password" type="password" value="" required autocomplete="new-password">
+        </div>
+        <div class="field">
+          <label for="f_password2">Confirm password <span class="req" id="pwReq2">*</span></label>
+          <input id="f_password2" name="password2" type="password" value="" required autocomplete="new-password">
+        </div>
+      </div>
+      <p class="help">At least 8 characters with a letter and a number.</p>
+
+      <div class="actions" style="margin-top:18px">
+        <button class="btn pri" type="submit" id="saveBtn">Create account</button>
+        <a class="btn sec" href="/staff">Cancel</a>
+      </div>
+    </form>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/staff-form.js"></script>
+</body>
+</html>

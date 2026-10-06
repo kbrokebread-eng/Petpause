@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staff accounts | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR2: a manager creates, updates, deactivates and assigns roles to staff. FR1: failed log-ins are shown here. -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1>Staff accounts</h1>
+        <div class="sub">Create accounts, assign roles and deactivate staff who have left.</div>
+      </div>
+      <a class="btn pri" href="/staff/new">+ Add staff member</a>
+    </div>
+
+    <div class="card flush">
+      <form class="filters" id="filterForm" method="get" action="/staff">
+        <input type="search" name="q" placeholder="Search name or username" aria-label="Search">
+        <select name="status" aria-label="Status">
+          <option value="">All staff</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+        <button class="btn sec" type="submit">Filter</button>
+      </form>
+      <div id="list"></div>
+    </div>
+
+    <div class="card flush" style="margin-top:18px">
+      <div style="padding:16px 16px 0"><h2>Recent failed log-in attempts</h2></div>
+      <div id="failed"></div>
+    </div>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/staff.js"></script>
+</body>
+</html>

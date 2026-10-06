@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!--
+  FR10: a medical alert flag for every boarded pet with a recorded restriction, with the restriction text.
+  NFR1: the alerts are high-contrast red, large, and at the top so they are visible without scrolling.
+-->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1>Today at PetPause</h1>
+        <div class="sub" id="today"></div>
+      </div>
+      <a class="btn pri" href="/status">Go to daily status</a>
+    </div>
+
+    <div id="alerts"></div>
+    <div class="grid4" style="margin-bottom:22px" id="stats"></div>
+
+    <div class="card flush">
+      <div style="padding:16px 16px 0"><h2>Pets on site today</h2></div>
+      <div id="onSite"></div>
+    </div>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

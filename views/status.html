@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daily status | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!--
+  FR11: staff record a pet's daily status: checked in, fed, exercised, checked out.
+  Each step is saved with the time and the staff member's name.
+-->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1>Daily status</h1>
+        <div class="sub" id="sub"></div>
+      </div>
+      <form class="actions" id="dayForm" method="get" action="/status">
+        <a class="btn sec sm" id="prevDay" href="#">&#9664; Previous day</a>
+        <input type="date" name="date" aria-label="Date" style="width:auto">
+        <button class="btn sec sm" type="submit">Go</button>
+        <a class="btn sec sm" id="nextDay" href="#">Next day &#9654;</a>
+        <a class="btn pri sm" id="todayLink" href="/status">Today</a>
+      </form>
+    </div>
+
+    <div class="actions" style="margin-bottom:14px" id="chips"></div>
+
+    <div class="card flush" id="table"></div>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/status.js"></script>
+</body>
+</html>

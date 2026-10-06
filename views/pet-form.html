@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register pet | PetPause</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<!-- FR3 register a pet, FR4 edit it, FR5 emergency vet details are required -->
+<body>
+  <header class="topbar"></header>
+  <main class="wrap">
+    <div class="pagehead">
+      <div>
+        <h1 id="heading">Register a new pet</h1>
+        <div class="sub"><a href="/pets">Pets</a> / <span id="crumb">New</span></div>
+      </div>
+    </div>
+    <div id="formError"></div>
+
+    <form id="petForm" method="post">
+      <div class="grid2">
+        <div class="card">
+          <h2>Pet details</h2>
+          <div class="cols">
+            <div class="field">
+              <label for="f_name">Pet name <span class="req">*</span></label>
+              <input id="f_name" name="name" type="text" value="" required>
+            </div>
+            <div class="field">
+              <label for="f_breed">Breed <span class="req">*</span></label>
+              <input id="f_breed" name="breed" type="text" value="" required list="breeds">
+            </div>
+            <div class="field">
+              <label for="f_age">Age (years)</label>
+              <input id="f_age" name="age" type="number" value="" min="0" max="40">
+            </div>
+            <div class="field">
+              <label for="f_weight">Weight (kg) <span class="req">*</span></label>
+              <input id="f_weight" name="weight" type="number" value="" required min="0.1" max="150" step="0.1">
+            </div>
+          </div>
+          <datalist id="breeds">
+            <option value="Labrador Retriever"><option value="Golden Retriever"><option value="Jack Russell">
+            <option value="Beagle"><option value="Boerboel"><option value="Border Collie"><option value="Bulldog">
+            <option value="Dachshund"><option value="German Shepherd"><option value="Maltese"><option value="Poodle">
+            <option value="Rottweiler"><option value="Staffordshire Terrier"><option value="Yorkshire Terrier">
+            <option value="Mixed breed"><option value="Cat (domestic)">
+          </datalist>
+          <div class="field">
+            <label for="f_medical">Medical restrictions</label>
+            <textarea id="f_medical" name="medical" rows="2"></textarea>
+            <div class="help">Allergies, medication and times. Shows as a red alert on the dashboard.</div>
+          </div>
+          <div class="field">
+            <label for="f_dietary">Dietary restrictions</label>
+            <textarea id="f_dietary" name="dietary" rows="2"></textarea>
+            <div class="help">Foods to avoid, own food, feeding times.</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h2>Owner details</h2>
+            <div class="cols">
+              <div class="field">
+                <label for="f_owner_name">Owner name <span class="req">*</span></label>
+                <input id="f_owner_name" name="owner_name" type="text" value="" required>
+              </div>
+              <div class="field">
+                <label for="f_owner_phone">Owner phone <span class="req">*</span></label>
+                <input id="f_owner_phone" name="owner_phone" type="tel" value="" required placeholder="082 555 0000">
+              </div>
+            </div>
+          </div>
+
+          <div class="card danger">
+            <h2>&#9742; Emergency vet contact</h2>
+            <p class="help">Required on every profile. The profile can't be saved without it.</p>
+            <div class="cols">
+              <div class="field">
+                <label for="f_vet_practice">Vet practice <span class="req">*</span></label>
+                <input id="f_vet_practice" name="vet_practice" type="text" value="" required>
+              </div>
+              <div class="field">
+                <label for="f_vet_phone">Vet phone <span class="req">*</span></label>
+                <input id="f_vet_phone" name="vet_phone" type="tel" value="" required placeholder="012 555 0000">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions" style="margin-top:18px">
+        <button class="btn pri" type="submit" id="saveBtn">Create pet profile</button>
+        <a class="btn sec" href="/pets" id="cancelLink">Cancel</a>
+      </div>
+    </form>
+  </main>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/pet-form.js"></script>
+</body>
+</html>
