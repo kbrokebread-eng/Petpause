@@ -20,5 +20,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kbrokebread-eng/Petpause.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kbrokebread-eng/Petpause/issues"
+  },
+  "homepage": "https://github.com/kbrokebread-eng/Petpause#readme"
 }
