@@ -70,6 +70,8 @@ function page(url, file, access) {
     if (access !== 'public') {
       const c = auth.current(req);
       if (!c.user) return res.redirect(303, c.reason === 'timeout' ? '/login?timeout=1' : '/login');
+      // Someone on a temporary password must choose their own before they can use the system
+      if (c.user.mustChangePassword && url !== '/change-password') return res.redirect(303, '/change-password');
       if (access === 'manager' && !c.user.isManager) {
         return errorPage(res, 403, 'No access',
           'Only managers can open this page. Ask a manager if you need this information.');
@@ -91,6 +93,9 @@ app.get('/logout', (req, res) => {
   auth.clearCookie(res);
   res.redirect(303, req.query.timeout === '1' ? '/login?timeout=1' : '/login?out=1');
 });
+
+// Increment 1: FR1 change your own password (forced after a manager sets a temporary one)
+page('/change-password', 'change-password.html', 'staff');
 
 // Increment 1: FR2 staff accounts, FR3-FR5 pet profiles
 page('/staff', 'staff.html', 'manager');
@@ -130,6 +135,6 @@ app.listen(PORT, () => {
   backup.startDailyBackups();
   console.log('PetPause PRBS is running.');
   console.log(`Open http://localhost:${PORT} in your browser.`);
-  console.log('Sample log-in: manager / PetPause2026!   (care staff: thandi / Staff2026!)');
+  console.log('Sample log-ins are listed in README.md');
   console.log('Press Ctrl+C to stop.');
 });

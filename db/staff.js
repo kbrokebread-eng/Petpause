@@ -14,11 +14,12 @@ function isValidRole(role) {
   return ROLES.includes(role);
 }
 
-function create(fullName, username, password, role) {
+/** mustChange = true when a manager sets the password, so the staff member has to choose their own. */
+function create(fullName, username, password, role, mustChange) {
   const salt = passwords.newSalt();
-  const info = db.prepare(`INSERT INTO staff (full_name, username, password_hash, salt, role, active, created_at)
-                           VALUES (?, ?, ?, ?, ?, 1, ?)`)
-    .run(fullName, username.toLowerCase(), passwords.hash(password, salt), salt, role, dates.nowText());
+  const info = db.prepare(`INSERT INTO staff (full_name, username, password_hash, salt, role, active,
+                           must_change_password, created_at) VALUES (?, ?, ?, ?, ?, 1, ?, ?)`)
+    .run(fullName, username.toLowerCase(), passwords.hash(password, salt), salt, role, mustChange ? 1 : 0, dates.nowText());
   return Number(info.lastInsertRowid);
 }
 
@@ -53,9 +54,11 @@ function setActive(id, active) {
   db.prepare('UPDATE staff SET active = ? WHERE id = ?').run(active ? 1 : 0, id);
 }
 
-function setPassword(id, password) {
+/** mustChange = true for a reset by a manager, false when staff choose their own password. */
+function setPassword(id, password, mustChange) {
   const salt = passwords.newSalt();
-  db.prepare('UPDATE staff SET password_hash = ?, salt = ? WHERE id = ?').run(passwords.hash(password, salt), salt, id);
+  db.prepare('UPDATE staff SET password_hash = ?, salt = ?, must_change_password = ? WHERE id = ?')
+    .run(passwords.hash(password, salt), salt, mustChange ? 1 : 0, id);
 }
 
 function countActiveManagers() {

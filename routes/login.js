@@ -35,7 +35,34 @@ router.post('/login', (req, res) => {
   }
 
   auth.setCookie(res, auth.start(s));
-  res.json({ ok: true });
+  res.json({ ok: true, mustChangePassword: s.must_change_password === 1 });
+});
+
+/**
+ * Staff change their own password. Used at first log-in (after a manager sets a temporary
+ * password) and any time someone wants to change theirs.
+ */
+router.post('/change-password', auth.requireLoginAllowTemporary, (req, res) => {
+  const current = typeof req.body.current === 'string' ? req.body.current : '';
+  const pw = typeof req.body.password === 'string' ? req.body.password : '';
+  const pw2 = typeof req.body.password2 === 'string' ? req.body.password2 : '';
+  const me = staff.findById(req.user.id);
+
+  const errors = {};
+  if (!passwords.matches(current, me.salt, me.password_hash)) {
+    errors.current = 'Your current password is not correct.';
+  }
+  const problem = passwords.checkStrength(pw, me.username);
+  if (problem) errors.password = problem;
+  else if (pw === current) errors.password = 'Choose a password different from your current one.';
+  else if (pw !== pw2) errors.password2 = "The two passwords don't match.";
+  if (Object.keys(errors).length) return res.status(400).json({ errors });
+
+  staff.setPassword(me.id, pw, false);
+  // Log out any other devices still using the old password, keep this one logged in
+  auth.endAllFor(me.id);
+  auth.setCookie(res, auth.start(me));
+  res.json({ message: 'Your password has been changed.' });
 });
 
 router.post('/logout', (req, res) => {
@@ -45,11 +72,13 @@ router.post('/logout', (req, res) => {
 });
 
 /** Who is logged in. Every page calls this first to draw the top bar. */
-router.get('/me', auth.requireLogin, (req, res) => {
+router.get('/me', auth.requireLoginAllowTemporary, (req, res) => {
   res.json({
     fullName: req.user.fullName,
+    username: req.user.username,
     role: req.user.role,
     isManager: req.user.isManager,
+    mustChangePassword: req.user.mustChangePassword,
     timeoutMinutes: auth.TIMEOUT_MINUTES
   });
 });

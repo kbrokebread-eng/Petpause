@@ -18,6 +18,7 @@ db.exec(`
     salt TEXT NOT NULL,
     role TEXT NOT NULL,
     active INTEGER NOT NULL DEFAULT 1,
+    must_change_password INTEGER NOT NULL DEFAULT 0, -- 1 = temporary password, must be changed at next log-in
     created_at TEXT NOT NULL
   );
 
@@ -79,6 +80,12 @@ db.exec(`
     value TEXT NOT NULL
   );
 `);
+
+// Older databases were made before the must_change_password column existed, so add it if it's missing
+const staffColumns = db.prepare('PRAGMA table_info(staff)').all().map((c) => c.name);
+if (!staffColumns.includes('must_change_password')) {
+  db.exec('ALTER TABLE staff ADD COLUMN must_change_password INTEGER NOT NULL DEFAULT 0');
+}
 
 module.exports = db;
 module.exports.DB_FILE = DB_FILE;

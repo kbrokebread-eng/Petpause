@@ -13,10 +13,11 @@ function loadIfEmpty() {
   settings.set('capacity', '20');
   settings.set('nightly_rate', '250');
 
-  staff.create('Sipho Nkosi', 'manager', 'PetPause2026!', 'Manager');
-  staff.create('Thandi Mokoena', 'thandi', 'Staff2026!', 'Care staff');
-  staff.create('Johan van Wyk', 'johan', 'Staff2026!', 'Receptionist');
-  staff.create('Lerato Dlamini', 'lerato', 'Staff2026!', 'Care staff');
+  // Each person has their own username (first initial + surname) and their own strong password
+  staff.create('Sipho Nkosi', 'snkosi', 'Tr7#Kennel!Gate', 'Manager', false);
+  staff.create('Thandi Mokoena', 'tmokoena', 'Bq4$Leash-Morning', 'Care staff', false);
+  staff.create('Johan van Wyk', 'jvanwyk', 'Wx9!Front-Desk22', 'Receptionist', false);
+  staff.create('Lerato Dlamini', 'ldlamini', 'Hp2&Feed-Round8', 'Care staff', false);
 
   const samplePets = [
     // name, breed, age, weight, owner, owner phone, medical, dietary, vet practice, vet phone

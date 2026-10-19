@@ -13,7 +13,8 @@ router.use(auth.requireManager);
 function publicFields(s) {
   return {
     id: s.id, full_name: s.full_name, username: s.username, role: s.role, active: s.active === 1,
-    last_login: s.last_login || null, failed: s.failed || 0, last_failed: s.last_failed || null
+    last_login: s.last_login || null, failed: s.failed || 0, last_failed: s.last_failed || null,
+    temporary_password: s.must_change_password === 1
   };
 }
 
@@ -45,7 +46,7 @@ function validate(body, existing) {
   }
   if (!staff.isValidRole(role)) errors.role = 'Choose a role.';
   if (isNew || pw !== '') {
-    const problem = passwords.checkStrength(pw);
+    const problem = passwords.checkStrength(pw, isNew ? username : existing.username);
     if (problem) errors.password = problem;
     else if (pw !== pw2) errors.password2 = "The two passwords don't match.";
   }
@@ -60,8 +61,9 @@ function validate(body, existing) {
 router.post('/', (req, res) => {
   const v = validate(req.body, null);
   if (Object.keys(v.errors).length) return res.status(400).json({ errors: v.errors });
-  staff.create(v.name, v.username, v.pw, v.role);
-  res.json({ message: `Account created for ${v.name}.` });
+  // The manager's password is temporary: the new staff member must choose their own at first log-in
+  staff.create(v.name, v.username, v.pw, v.role, true);
+  res.json({ message: `Account created for ${v.name}. They'll be asked to choose their own password when they first log in.` });
 });
 
 router.put('/:id', (req, res) => {
@@ -70,11 +72,17 @@ router.put('/:id', (req, res) => {
   const v = validate(req.body, existing);
   if (Object.keys(v.errors).length) return res.status(400).json({ errors: v.errors });
   staff.update(existing.id, v.name, v.role);
+  let extra = '';
   if (v.pw !== '') {
-    staff.setPassword(existing.id, v.pw);
-    if (existing.id !== req.user.id) auth.endAllFor(existing.id); // they must log in again with the new password
+    const isMe = existing.id === req.user.id;
+    // A reset by a manager is temporary, so the staff member must choose their own at next log-in
+    staff.setPassword(existing.id, v.pw, !isMe);
+    if (!isMe) {
+      auth.endAllFor(existing.id); // they must log in again with the new password
+      extra = " They'll be asked to choose a new password when they next log in.";
+    }
   }
-  res.json({ message: `Changes saved for ${v.name}.` });
+  res.json({ message: `Changes saved for ${v.name}.` + extra });
 });
 
 router.post('/:id/active', (req, res) => {
