@@ -29,7 +29,8 @@
       h += `<tr${s.failed > 0 ? " class='hl'" : ''}>`
         + `<td><strong>${esc(s.full_name)}</strong>${me ? " <span class='muted'>(you)</span>" : ''}`
         + `<div class='muted small'>${esc(s.username)}</div></td>`
-        + `<td>${esc(s.role)}</td><td>${App.pill(s.active ? 'Active' : 'Inactive')}</td>`
+        + `<td>${esc(s.role)}</td><td>${App.pill(s.active ? 'Active' : 'Inactive')}`
+        + (s.temporary_password ? "<div class='muted small'>Temporary password</div>" : '') + '</td>'
         + `<td>${s.last_login ? esc(s.last_login.slice(0, 16)) : "<span class='muted'>Never</span>"}</td>`
         + (s.failed > 0
           ? `<td><span class='pill amber'>&#9888; ${s.failed} failed</span><div class='muted small'>Last: ${esc(s.last_failed.slice(0, 16))}</div></td>`

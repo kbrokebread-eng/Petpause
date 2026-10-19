@@ -17,7 +17,8 @@
     const password = form.password.value;
     const res = await App.api('POST', '/api/login', { username, password });
     if (res.ok) {
-      location.href = '/dashboard';
+      // Someone on a temporary password from a manager has to choose their own first
+      location.href = res.data.mustChangePassword ? '/change-password' : '/dashboard';
       return;
     }
     note.innerHTML = '';

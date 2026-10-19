@@ -39,6 +39,14 @@ const App = (function () {
       location.href = data.error === 'timeout' ? '/login?timeout=1' : '/login';
       return new Promise(() => {}); // stop here, the page is changing
     }
+    if (res.status === 403) {
+      const copy = res.clone();
+      const data = await copy.json().catch(() => ({}));
+      if (data.error === 'change_password') {
+        location.href = '/change-password';
+        return new Promise(() => {});
+      }
+    }
     restartCountdown();
     const data = await res.json().catch(() => ({}));
     return { ok: res.ok, status: res.status, data };
@@ -70,7 +78,9 @@ const App = (function () {
     }
     document.querySelector('.topbar').innerHTML =
       `<a class='brand' href='/dashboard'>${PAW}<span>PetPause<small>Records &amp; Bookings</small></span></a>`
-      + `<nav>${nav}</nav><div class='who'><div><strong>${esc(me.fullName)}</strong><span>${esc(me.role)}`
+      + `<nav>${nav}</nav><div class='who'><div>`
+      + `<div style='display:flex;gap:8px;align-items:baseline'><strong>${esc(me.fullName)}</strong>`
+      + `<a href='/change-password' style='font-size:.78rem'>Change password</a></div><span>${esc(me.role)}`
       + ` &middot; <span id='countdown'>Auto log-out in ${me.timeoutMinutes}:00</span></span></div>`
       + `<a class='btn sec sm' href='/logout'>Log out</a></div>`;
 

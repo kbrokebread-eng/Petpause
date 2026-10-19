@@ -24,6 +24,22 @@
     alerts.innerHTML = h + '</div></section>';
   }
 
+  // Pets with a restriction arriving in the next few days, so staff can prepare before check-in
+  document.getElementById('upcomingHeading').innerHTML =
+    `&#9888; Medical alerts arriving in the next ${d.upcomingDays} days`;
+  const upcomingBox = document.getElementById('upcoming');
+  if (d.upcoming.length === 0) {
+    upcomingBox.innerHTML = "<div class='empty'>No pets with a medical or dietary restriction are arriving this week.</div>";
+  } else {
+    let h = '<table><tr><th>Arrives</th><th>Pet</th><th>Restriction</th></tr>';
+    for (const u of d.upcoming) {
+      h += `<tr><td><strong>${dates.shortDay(u.start_date)}</strong></td>`
+        + `<td><a href='/pets/view?id=${u.pet_id}'><strong>${esc(u.pet_name)}</strong></a> <span class='muted small'>${esc(u.breed)}</span></td>`
+        + `<td style='white-space:normal'><span class='pill red'>&#9888; ${esc(u.text)}</span></td></tr>`;
+    }
+    upcomingBox.innerHTML = h + '</table>';
+  }
+
   // Today's numbers
   const arriving = d.onSite.filter((b) => b.start_date === today);
   const leaving = d.onSite.filter((b) => b.end_date === today);
