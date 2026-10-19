@@ -70,6 +70,18 @@ function onSite(day) {
   return db.prepare(SELECT + ' WHERE b.cancelled = 0 AND b.start_date <= ? AND b.end_date >= ? ORDER BY p.name').all(day, day);
 }
 
+/** Bookings arriving after today and up to a date (used for the upcoming alerts on the dashboard). */
+function arrivingBetween(afterDay, upToDay) {
+  return db.prepare(SELECT + ` WHERE b.cancelled = 0 AND p.deleted = 0 AND b.start_date > ? AND b.start_date <= ?
+                               ORDER BY b.start_date, p.name`).all(afterDay, upToDay);
+}
+
+/** Bookings with at least one night inside a period (used for the revenue summary). */
+function withNightsBetween(firstNight, dayAfterLastNight) {
+  return db.prepare(SELECT + ` WHERE b.cancelled = 0 AND b.start_date < ? AND b.end_date > ?
+                               ORDER BY b.start_date, p.name`).all(dayAfterLastNight, firstNight);
+}
+
 /** Number of places taken on one night (optionally ignoring one booking while it is being amended). */
 function bookedOnNight(night, ignoreBookingId) {
   return db.prepare(`SELECT COUNT(*) AS n FROM bookings
@@ -99,5 +111,5 @@ function activeFutureCountForPet(petId) {
 
 module.exports = {
   nights, status, canChange, code, insert, update, cancel, find, list, forPet, onSite,
-  bookedOnNight, nightsFor, overlappingStay, activeFutureCountForPet
+  arrivingBetween, withNightsBetween, bookedOnNight, nightsFor, overlappingStay, activeFutureCountForPet
 };

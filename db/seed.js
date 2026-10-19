@@ -29,7 +29,8 @@ function loadIfEmpty() {
     ['Coco', 'Poodle', 2, 6, 'Megan Smith', '084 555 0120', '', '', 'Lyttelton Animal Hospital', '012 555 0101'],
     ['Oscar', 'Dachshund', 8, 9, 'Riaan Venter', '082 555 0165', '', 'No chicken or poultry products.',
       'Centurion Vet Clinic', '012 555 0202'],
-    ['Nala', 'Staffordshire Terrier', 5, 18, 'Zanele Ndlovu', '073 555 0154', '', '', 'Irene Vet', '012 555 0303'],
+    ['Nala', 'Staffordshire Terrier', 5, 18, 'Zanele Ndlovu', '073 555 0154',
+      'Joint medication with breakfast.', '', 'Irene Vet', '012 555 0303'],
     ['Simba', 'Boerboel', 3, 58, 'Thabo Mahlangu', '076 555 0132', '', '', 'Midstream Vet', '012 555 0404']
   ];
   for (const p of samplePets) {

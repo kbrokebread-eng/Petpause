@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Occupancy report | PetPause</title>
+  <title>Occupancy and revenue report | PetPause</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
-<!-- FR12: weekly occupancy report - pets boarded per day, occupancy % against capacity and the peak day -->
+<!--
+  FR12: weekly occupancy report - pets boarded per day, occupancy % against capacity and the peak day -
+  plus a revenue summary based on pet stay durations and bookings.
+-->
 <body>
   <header class="topbar"></header>
   <main class="wrap">
     <div class="pagehead">
       <div>
-        <h1>Weekly occupancy report</h1>
+        <h1>Weekly occupancy and revenue report</h1>
         <div class="sub" id="sub"></div>
       </div>
       <div class="actions no-print">
@@ -31,6 +34,14 @@
         <div class="chart-labels" id="labels"></div>
       </div>
       <div class="card flush" id="table"></div>
+    </div>
+
+    <div class="card flush" style="margin-top:18px">
+      <div style="padding:16px 16px 0">
+        <h2>Revenue summary</h2>
+        <p class="muted small" id="revenueNote"></p>
+      </div>
+      <div id="revenue"></div>
     </div>
     <p class="muted small" style="margin-top:14px" id="footer"></p>
   </main>

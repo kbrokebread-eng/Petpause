@@ -8,6 +8,7 @@
 </head>
 <!--
   FR10: a medical alert flag for every boarded pet with a recorded restriction, with the restriction text.
+  Also shows pets with a restriction arriving in the next 7 days, so staff are warned before check-in.
   NFR1: the alerts are high-contrast red, large, and at the top so they are visible without scrolling.
 -->
 <body>
@@ -22,6 +23,11 @@
     </div>
 
     <div id="alerts"></div>
+
+    <div class="card flush danger" style="margin-bottom:22px" id="upcomingCard">
+      <div style="padding:16px 16px 0"><h2 id="upcomingHeading" style="color:var(--red-dark)">&#9888; Medical alerts arriving soon</h2></div>
+      <div id="upcoming"></div>
+    </div>
     <div class="grid4" style="margin-bottom:22px" id="stats"></div>
 
     <div class="card flush">
